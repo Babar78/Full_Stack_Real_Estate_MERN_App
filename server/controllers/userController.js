@@ -130,5 +130,74 @@ export const cancelBooking = asyncHandler(async (req, res) => {
   }
 });
 
+// Function to add and remove Residency to Favaourites List
+export const residencyToFavourites = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  const { rid } = req.params;
 
-// Function to add Residency to Favaourites List
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
+
+    // Remove From Favorites if already in favorites
+    if (user.favoriteResidenciesID.includes(rid)) {
+      const updatedUser = await prisma.user.update({
+        where: {
+          email: email,
+        },
+        data: {
+          favoriteResidenciesID: {
+            set: user.favoriteResidenciesID.filter((id) => id !== rid),
+          },
+        },
+      });
+      res.send({
+        message: "Residency removed from favourites!",
+        user: updatedUser,
+      });
+    }
+    // Add to favorites if not in favorites
+    else {
+      const updatedUser = await prisma.user.update({
+        where: {
+          email: email,
+        },
+        data: {
+          favoriteResidenciesID: {
+            push: rid,
+          },
+        },
+      });
+      res.send({
+        message: "Residency added to favourites!",
+        user: updatedUser,
+      });
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+});
+
+// Function to get all favorites residencies
+
+export const getAllFavorites = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const favResidencies = await prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+      select: {
+        favoriteResidenciesID: true,
+      },
+    });
+
+    res.status(200).send(favResidencies);
+  } catch (error) {
+    throw new Error(error.message);
+  }
+});
