@@ -9,6 +9,6 @@ const router = express.Router();
 
 router.post("/create", createResidency);
 router.get("/getAllResidencies", getAllResidencies);
-router.get("/:id", getResidency)
+router.get("/:id", getResidency);
 
 export { router as residencyRoute };
