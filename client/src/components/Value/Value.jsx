@@ -18,7 +18,9 @@ import "./Value.css";
 
 const Value = () => {
   const [expandedItems, setExpandedItems] = useState([0]);
+  const [expandedItemIndex, setExpandedItemIndex] = useState(0);
 
+  // handle Accordin Change
   const handleAccordionChange = (uuid) => {
     setExpandedItems((prevItems) => {
       if (prevItems.includes(uuid)) {
@@ -27,6 +29,11 @@ const Value = () => {
         return [...prevItems, uuid];
       }
     });
+  };
+
+  // handle Expanded Item Indedx to Conditionally apply the shadow
+  const handleExpandedItemIndex = (index) => {
+    setExpandedItemIndex(index);
   };
 
   return (
@@ -60,9 +67,18 @@ const Value = () => {
           >
             {data.map((item, i) => {
               return (
-                <AccordionItem className={`accordionItem`} uuid={i} key={i}>
+                <AccordionItem
+                  className={`accordionItem ${
+                    expandedItemIndex === i ? "expanded" : "collapsed"
+                  }`}
+                  uuid={i}
+                  key={i}
+                  onClick={() => handleExpandedItemIndex(i)}
+                >
                   <AccordionItemHeading>
-                    <AccordionItemButton className="flexCenter accordionButton ">
+                    <AccordionItemButton
+                      className="flexCenter accordionButton "
+                    >
                       <div className="flexCenter icon">{item.icon}</div>
                       <span className="primaryText">{item.heading}</span>
                       <div className="flexCenter icon">
