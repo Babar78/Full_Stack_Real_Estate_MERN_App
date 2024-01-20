@@ -27,7 +27,7 @@ const GeoCoderMarker = ({ address }) => {
           // Latitude and Longitude
           const { lat, lng } = results?.results[0].latlng;
           setPosition([lat, lng]);
-          map.flyTo([lat, lng], 6);
+          map.flyTo([lat, lng], 5);
         }
       });
   }, [address]);
