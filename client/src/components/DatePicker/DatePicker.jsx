@@ -8,7 +8,7 @@ const initialState = {
 
 const calendarContainerStyles = {
   width: "24rem",
-  height: "24rem",
+  height: "27rem",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
@@ -31,11 +31,14 @@ const DatePicker = (props) => {
           />
           <Button
             variant="contained"
+            sx={{
+              backgroundColor: "#00a3dc !important",
+            }}
             onClick={() => {
               props.setOpened(false);
             }}
           >
-            Book
+            Book Visit
           </Button>
         </Card>
       </div>
