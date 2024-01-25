@@ -41,6 +41,7 @@ export const createUser = async (email) => {
     await api.post(`/user/register`, { email });
   } catch (error) {
     // toast.error("Something went wrong, Please try again.");
-    throw error.response.data.message;
+    // throw error.response.data.message;
+    console.log("User Already Exists!");
   }
 };
