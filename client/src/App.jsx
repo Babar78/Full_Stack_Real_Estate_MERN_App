@@ -1,4 +1,4 @@
-import { Suspense, useState } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
@@ -14,11 +14,19 @@ import UserDetailContext from "./context/userDetailsContext";
 function App() {
   const queryClient = new QueryClient();
 
-  const [userDetails, setUserDetails] = useState({
-    favourites: [],
-    bookings: [],
-    token: null,
-  });
+  // Load user details from localStorage on app initialization
+  const [userDetails, setUserDetails] = useState(() => {
+    const storedUserDetails = localStorage.getItem("userDetails");
+    return storedUserDetails ? JSON.parse(storedUserDetails) : {
+      favourites: [],
+      bookings: [],
+      token: null,
+    };
+  }); 
+  // Save user details to localStorage whenever userDetails changes
+  useEffect(() => {
+    localStorage.setItem("userDetails", JSON.stringify(userDetails));
+  }, [userDetails]);
 
   return (
     <UserDetailContext.Provider value={{ userDetails, setUserDetails }}>

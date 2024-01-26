@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import "./PropertyDetail.css";
 
 import { PuffLoader } from "react-spinners";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
-import { getPropertyDetails } from "../../utils/api";
+import { getPropertyDetails, removeBooking } from "../../utils/api";
 
 import { AiFillHeart, AiTwotoneCar } from "react-icons/ai";
 import { FaShower } from "react-icons/fa";
@@ -15,6 +15,7 @@ import BookingModal from "../../components/BookingModal/BookingModal";
 import { useAuth0 } from "@auth0/auth0-react";
 import UserDetailContext from "../../context/userDetailsContext.js";
 import Button from "@mui/material/Button";
+import { toast } from "react-toastify";
 
 const PropertyDetail = () => {
   // Get the Id from URL
@@ -35,6 +36,19 @@ const PropertyDetail = () => {
     userDetails: { bookings },
     setUserDetails,
   } = React.useContext(UserDetailContext);
+
+  const { mutate: cancelBooking, isLoading: cancelling } = useMutation({
+    mutationFn: () => removeBooking(id, user?.email),
+    onSuccess: () => {
+      setUserDetails((prev) => ({
+        ...prev,
+        bookings: prev.bookings.filter((booking) => booking?.id !== id),
+      }));
+      toast.success("Booking Cancelled Successfully", {
+        position: "bottom-right",
+      });
+    },
+  });
 
   if (isError) {
     return (
@@ -114,15 +128,23 @@ const PropertyDetail = () => {
 
             {/* booking button */}
             {bookings?.map((bookings) => bookings.id).includes(id) ? (
-              <Button
-                variant="outlined"
-                color="error"
-                sx={{
-                  width: "100% !important",
-                }}
-              >
-                <span>Cancel Booking</span>
-              </Button>
+              <>
+                <Button
+                  variant="outlined"
+                  color="error"
+                  sx={{
+                    width: "100% !important",
+                  }}
+                  onClick={()=>cancelBooking()}
+                  disabled={cancelling}
+                >
+                  <span>Cancel Booking</span>
+                </Button>
+                <span>
+                  Your visit already booked for{" "}
+                  {bookings?.filter((booking) => booking?.id === id)[0].date}
+                </span>
+              </>
             ) : (
               <button
                 className="button"
