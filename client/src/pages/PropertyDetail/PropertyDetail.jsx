@@ -6,7 +6,7 @@ import { useMutation, useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
 import { getPropertyDetails, removeBooking } from "../../utils/api";
 
-import { AiFillHeart, AiTwotoneCar } from "react-icons/ai";
+import { AiTwotoneCar } from "react-icons/ai";
 import { FaShower } from "react-icons/fa";
 import { MdMeetingRoom, MdLocationPin } from "react-icons/md";
 import Map from "../../components/Map/Map";
@@ -16,6 +16,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import UserDetailContext from "../../context/userDetailsContext.js";
 import Button from "@mui/material/Button";
 import { toast } from "react-toastify";
+import Heart from "../../components/Heart/Heart.jsx";
 
 const PropertyDetail = () => {
   // Get the Id from URL
@@ -80,7 +81,7 @@ const PropertyDetail = () => {
       <div className="flexColStart paddings innerWidth property-container">
         {/* Like Button */}
         <div className="like">
-          <AiFillHeart size={24} color="white" />
+          <Heart id={id} />
         </div>
         {/* Image */}
         <img src={data?.residency?.image} alt="home image" />
@@ -135,7 +136,7 @@ const PropertyDetail = () => {
                   sx={{
                     width: "100% !important",
                   }}
-                  onClick={()=>cancelBooking()}
+                  onClick={() => cancelBooking()}
                   disabled={cancelling}
                 >
                   <span>Cancel Booking</span>

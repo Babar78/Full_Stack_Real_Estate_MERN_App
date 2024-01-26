@@ -72,3 +72,16 @@ export const removeBooking = async (id, email) => {
     throw error;
   }
 };
+
+// Add to Fav
+
+export const addToFav = async (id, email) => {
+  try {
+    await api.post(`/user/toFav/${id}`, {
+      email: email,
+    });
+  } catch (error) {
+    toast.error("Could not add to Fav, Please try again.");
+    throw error;
+  }
+};

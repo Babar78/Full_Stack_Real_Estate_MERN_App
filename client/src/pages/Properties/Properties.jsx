@@ -7,7 +7,6 @@ import PropertyCard from "../../components/PropertyCard/PropertyCard";
 
 const Properties = () => {
   const { data, isError, isLoading } = useProperties();
-
   if (isError) {
     return (
       <div className="wrapper">
