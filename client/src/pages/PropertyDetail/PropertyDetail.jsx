@@ -13,6 +13,8 @@ import Map from "../../components/Map/Map";
 import useAuthCheck from "../../hooks/useAuthCheck";
 import BookingModal from "../../components/BookingModal/BookingModal";
 import { useAuth0 } from "@auth0/auth0-react";
+import UserDetailContext from "../../context/userDetailsContext.js";
+import Button from "@mui/material/Button";
 
 const PropertyDetail = () => {
   // Get the Id from URL
@@ -27,7 +29,12 @@ const PropertyDetail = () => {
   const [modalOpened, setModalOpened] = useState(false);
   const { validateLogin } = useAuthCheck();
 
-  const {user} = useAuth0();
+  const { user } = useAuth0();
+
+  const {
+    userDetails: { bookings },
+    setUserDetails,
+  } = React.useContext(UserDetailContext);
 
   if (isError) {
     return (
@@ -106,14 +113,26 @@ const PropertyDetail = () => {
             </div>
 
             {/* booking button */}
-            <button
-              className="button"
-              onClick={() => {
-                validateLogin() && setModalOpened(true);
-              }}
-            >
-              Book Your Visit
-            </button>
+            {bookings?.map((bookings) => bookings.id).includes(id) ? (
+              <Button
+                variant="outlined"
+                color="error"
+                sx={{
+                  width: "100% !important",
+                }}
+              >
+                <span>Cancel Booking</span>
+              </Button>
+            ) : (
+              <button
+                className="button"
+                onClick={() => {
+                  validateLogin() && setModalOpened(true);
+                }}
+              >
+                Book Your Visit
+              </button>
+            )}
             <BookingModal
               opened={modalOpened}
               setOpened={setModalOpened}

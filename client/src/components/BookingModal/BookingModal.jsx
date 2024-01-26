@@ -2,6 +2,11 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import DatePicker from "../DatePicker/DatePicker";
+import { useMutation } from "react-query";
+import { bookVisit } from "../../utils/api";
+import { toast } from "react-toastify";
+import UserDetailContext from "../../context/userDetailsContext.js";
+import dayjs from "dayjs";
 
 const style = {
   position: "absolute",
@@ -19,6 +24,35 @@ const style = {
 };
 
 const BookingModal = ({ opened, setOpened, propertyId, email }) => {
+  const [value, setValue] = React.useState(null);
+
+  const { userDetails, setUserDetails } = React.useContext(UserDetailContext);
+
+  const handleBookingSuccess = () => {
+    toast.success("Visit booked successfully!", { position: "bottom-right" });
+    setUserDetails((prev)=> ({
+      ...prev,
+      bookings: [
+        ...prev.bookings,
+        {
+          id:propertyId,
+          date: dayjs(value).format("DD/MM/YYYY"),
+        },
+      ]
+    }))
+  };
+
+  const { mutate, isLoading } = useMutation({
+    mutationFn: () => bookVisit(value, propertyId, email),
+    onSuccess: () => {
+      handleBookingSuccess();
+    },
+    onError: ({ response }) => toast.error(response.data.message),
+    onSettled: () => {
+      setOpened(false);
+    },
+  });
+
   return (
     <div>
       <Modal
@@ -28,7 +62,13 @@ const BookingModal = ({ opened, setOpened, propertyId, email }) => {
         aria-describedby="modal-modal-description"
       >
         <div style={style}>
-          <DatePicker setOpened={setOpened} />
+          <DatePicker
+            setOpened={setOpened}
+            value={value}
+            setValue={setValue}
+            isLoading={isLoading}
+            onClick={() => mutate()}
+          />
         </div>
       </Modal>
     </div>

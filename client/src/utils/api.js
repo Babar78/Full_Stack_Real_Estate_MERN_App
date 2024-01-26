@@ -45,3 +45,18 @@ export const createUser = async (email) => {
     console.log("User Already Exists!");
   }
 };
+
+// Book Visit API
+
+export const bookVisit = async (date, propertyId, email) => {
+  try {
+    await api.post(`/user/bookVisit/${propertyId}`, {
+      email: email,
+      id: propertyId,
+      date: dayjs(date).format("DD/MM/YYYY"),
+    });
+  } catch (error) {
+    toast.error("Could not Book Visit, Please try again.");
+    throw error;
+  }
+};
