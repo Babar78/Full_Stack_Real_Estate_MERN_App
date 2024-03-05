@@ -36,9 +36,13 @@ export const getPropertyDetails = async (id) => {
   }
 };
 
-export const createUser = async (email) => {
+export const createUser = async (email, token) => {
   try {
-    await api.post(`/user/register`, { email });
+    await api.post(`/user/register`, { email }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   } catch (error) {
     // toast.error("Something went wrong, Please try again.");
     // throw error.response.data.message;
@@ -48,13 +52,19 @@ export const createUser = async (email) => {
 
 // Book Visit API
 
-export const bookVisit = async (date, propertyId, email) => {
+export const bookVisit = async (date, propertyId, email, token) => {
   try {
     await api.post(`/user/bookVisit/${propertyId}`, {
       email: email,
       id: propertyId,
       date: dayjs(date).format("DD/MM/YYYY"),
-    });
+    },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
   } catch (error) {
     toast.error("Could not Book Visit, Please try again.");
     throw error;
@@ -62,11 +72,17 @@ export const bookVisit = async (date, propertyId, email) => {
 };
 
 // Cancel Booking
-export const removeBooking = async (id, email) => {
+export const removeBooking = async (id, email, token) => {
   try {
     await api.post(`/user/cancelBooking/${id}`, {
       email: email,
-    });
+    },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+
+      });
   } catch (error) {
     toast.error("Could not Cancel Visit, Please try again.");
     throw error;
@@ -75,13 +91,42 @@ export const removeBooking = async (id, email) => {
 
 // Add to Fav
 
-export const addToFav = async (id, email) => {
+export const addToFav = async (id, email, token) => {
   try {
     await api.post(`/user/toFav/${id}`, {
       email: email,
-    });
+    },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+
+      });
   } catch (error) {
     toast.error("Could not add to Fav, Please try again.");
     throw error;
   }
 };
+
+
+// Get all favs
+export const getAllFav = async (email, token) => {
+  if (!email) return;
+  else {
+    try {
+      const res = await api.post(
+        `/user/favouriteResidencies`, { email },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return res.data["favoriteResidenciesID"];
+    } catch (error) {
+      toast.error("Something went wrong while fetching favourites");
+      throw error;
+    }
+  }
+
+}

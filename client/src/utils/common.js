@@ -27,12 +27,11 @@ export const updateFavorites = (id, favourites) => {
   if (favourites.includes(id)) {
     return favourites.filter((resId) => resId !== id);
   }
-
-  else{
+  else {
     return [...favourites, id];
   }
 };
 
-export const checkFavourites = (id,favourites) =>{
-  return favourites.includes(id)? "#fa3e5f": "white ";
+export const checkFavourites = (id, favourites) => {
+  return favourites?.includes(id) ? "#fa3e5f" : "white ";
 }

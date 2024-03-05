@@ -7,15 +7,16 @@ import {
   getAllFavorites,
   residencyToFavourites,
 } from "../controllers/userController.js";
+import jwtCheck from "../config/auth0Config.js";
 // import jwtCheck from "../config/auth0Config.js";
 
 const router = express.Router();
 
-router.post("/register", createUser);
-router.post("/bookVisit/:id", bookVisit);
+router.post("/register", jwtCheck, createUser);
+router.post("/bookVisit/:id", jwtCheck, bookVisit);
 router.get("/getAllBookings", getAllBookings);
-router.post("/cancelBooking/:id", cancelBooking);
-router.post("/toFav/:rid", residencyToFavourites);
-router.get("/favouriteResidencies", getAllFavorites);
+router.post("/cancelBooking/:id", jwtCheck, cancelBooking);
+router.post("/toFav/:rid", jwtCheck, residencyToFavourites);
+router.post("/favouriteResidencies/", jwtCheck, getAllFavorites);
 
 export { router as userRoute };

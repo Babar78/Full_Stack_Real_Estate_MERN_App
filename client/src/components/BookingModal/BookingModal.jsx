@@ -26,7 +26,7 @@ const style = {
 const BookingModal = ({ opened, setOpened, propertyId, email }) => {
   const [value, setValue] = React.useState(null);
 
-  const { userDetails, setUserDetails } = React.useContext(UserDetailsContext);
+  const { userDetails: {token}, setUserDetails } = React.useContext(UserDetailsContext);
 
   const handleBookingSuccess = () => {
     toast.success("Visit booked successfully!", { position: "bottom-right" });
@@ -43,7 +43,7 @@ const BookingModal = ({ opened, setOpened, propertyId, email }) => {
   };
 
   const { mutate, isLoading } = useMutation({
-    mutationFn: () => bookVisit(value, propertyId, email),
+    mutationFn: () => bookVisit(value, propertyId, email, token),
     onSuccess: () => {
       handleBookingSuccess();
     },

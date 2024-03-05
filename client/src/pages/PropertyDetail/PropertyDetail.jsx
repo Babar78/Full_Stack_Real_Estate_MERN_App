@@ -13,10 +13,10 @@ import Map from "../../components/Map/Map";
 import useAuthCheck from "../../hooks/useAuthCheck";
 import BookingModal from "../../components/BookingModal/BookingModal";
 import { useAuth0 } from "@auth0/auth0-react";
-import UserDetailContext from "../../context/userDetailsContext.js";
 import Button from "@mui/material/Button";
 import { toast } from "react-toastify";
 import Heart from "../../components/Heart/Heart.jsx";
+import UserDetailsContext from "../../context/userDetailsContext.js";
 
 const PropertyDetail = () => {
   // Get the Id from URL
@@ -34,12 +34,12 @@ const PropertyDetail = () => {
   const { user } = useAuth0();
 
   const {
-    userDetails: { bookings },
+    userDetails: { bookings, token },
     setUserDetails,
-  } = React.useContext(UserDetailContext);
+  } = React.useContext(UserDetailsContext);
 
   const { mutate: cancelBooking, isLoading: cancelling } = useMutation({
-    mutationFn: () => removeBooking(id, user?.email),
+    mutationFn: () => removeBooking(id, user?.email, token),
     onSuccess: () => {
       setUserDetails((prev) => ({
         ...prev,
@@ -128,7 +128,7 @@ const PropertyDetail = () => {
             </div>
 
             {/* booking button */}
-            {bookings?.map((bookings) => bookings.id).includes(id) ? (
+            {bookings?.map((booking) => booking.id).includes(id) ? (
               <>
                 <Button
                   variant="outlined"
