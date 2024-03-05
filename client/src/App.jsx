@@ -9,7 +9,7 @@ import Properties from "./pages/Properties/Properties";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PropertyDetail from "./pages/PropertyDetail/PropertyDetail";
-import UserDetailContext from "./context/userDetailsContext";
+import UserDetailsContext from "./context/userDetailsContext.js";
 
 function App() {
   const queryClient = new QueryClient();
@@ -29,7 +29,7 @@ function App() {
   }, [userDetails]);
 
   return (
-    <UserDetailContext.Provider value={{ userDetails, setUserDetails }}>
+    <UserDetailsContext.Provider value={{ userDetails, setUserDetails }}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <Suspense fallback={<div>Loading...</div>}>
@@ -47,7 +47,7 @@ function App() {
         <ToastContainer />
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
-    </UserDetailContext.Provider>
+    </UserDetailsContext.Provider>
   );
 }
 

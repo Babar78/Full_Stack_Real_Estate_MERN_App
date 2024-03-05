@@ -20,19 +20,19 @@ const Layout = () => {
 
   useEffect(
     () => {
-      // const getTokenAndRegister = async () => {
-      //   const res = await getAccessTokenWithPopup({
-      //     authorizationParams: {
-      //       audience: "http://localhost:8000",
-      //       scope: "openid profile email",
-      //     },
-      //   });
-      //   localStorage.setItem("access_token", res);
-      //   setUserDetails((prev) => ({ ...prev, token: res }));
-      //   mutate(res);
-      // };
+      const getTokenAndRegister = async () => {
+        const res = await getAccessTokenWithPopup({
+          authorizationParams: {
+            audience: "http://localhost:8000",
+            scope: "openid profile email",
+          },
+        });
+        localStorage.setItem("access_token", res);
+        setUserDetails((prev) => ({ ...prev, token: res }));
+        console.log(res);
+      };
 
-      isAuthenticated && mutate();
+      isAuthenticated && getTokenAndRegister();
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [isAuthenticated]

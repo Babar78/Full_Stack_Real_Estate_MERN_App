@@ -5,7 +5,7 @@ import DatePicker from "../DatePicker/DatePicker";
 import { useMutation } from "react-query";
 import { bookVisit } from "../../utils/api";
 import { toast } from "react-toastify";
-import UserDetailContext from "../../context/userDetailsContext.js";
+import UserDetailsContext from "../../context/userDetailsContext";
 import dayjs from "dayjs";
 
 const style = {
@@ -26,16 +26,16 @@ const style = {
 const BookingModal = ({ opened, setOpened, propertyId, email }) => {
   const [value, setValue] = React.useState(null);
 
-  const { userDetails, setUserDetails } = React.useContext(UserDetailContext);
+  const { userDetails, setUserDetails } = React.useContext(UserDetailsContext);
 
   const handleBookingSuccess = () => {
     toast.success("Visit booked successfully!", { position: "bottom-right" });
-    setUserDetails((prev)=> ({
+    setUserDetails((prev) => ({
       ...prev,
       bookings: [
         ...prev.bookings,
         {
-          id:propertyId,
+          id: propertyId,
           date: dayjs(value).format("DD/MM/YYYY"),
         },
       ]
