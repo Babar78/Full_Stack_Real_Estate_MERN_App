@@ -14,7 +14,7 @@ const router = express.Router();
 
 router.post("/register", jwtCheck, createUser);
 router.post("/bookVisit/:id", jwtCheck, bookVisit);
-router.get("/getAllBookings", getAllBookings);
+router.post("/getAllBookings", getAllBookings);
 router.post("/cancelBooking/:id", jwtCheck, cancelBooking);
 router.post("/toFav/:rid", jwtCheck, residencyToFavourites);
 router.post("/favouriteResidencies/", jwtCheck, getAllFavorites);

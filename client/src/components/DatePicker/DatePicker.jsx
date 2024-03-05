@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import { Card, Calendar } from "react-rainbow-components";
 import Button from "@mui/material/Button";
 
@@ -17,6 +18,10 @@ const calendarContainerStyles = {
 
 
 const DatePicker = (props) => {
+
+  const { pathname } = useLocation();
+  const id = pathname.split("/").slice(-1)[0];
+
   const {
     userDetails: { bookings },
     setUserDetails,
