@@ -15,8 +15,6 @@ const calendarContainerStyles = {
   alignItems: "center",
 };
 
-
-
 const DatePicker = (props) => {
 
   const { pathname } = useLocation();

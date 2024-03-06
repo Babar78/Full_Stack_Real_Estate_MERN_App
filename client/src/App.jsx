@@ -1,3 +1,4 @@
+import '@mantine/core/styles.css'
 import { Suspense, useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -22,7 +23,7 @@ function App() {
       bookings: [],
       token: null,
     };
-  }); 
+  });
   // Save user details to localStorage whenever userDetails changes
   useEffect(() => {
     localStorage.setItem("userDetails", JSON.stringify(userDetails));
