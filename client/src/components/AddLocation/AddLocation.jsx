@@ -10,7 +10,7 @@ const AddLocation = ({ propertyDetails, setPropertyDetails, nextStep }) => {
 
     const { getAll } = useCountries();
     const form = useForm({
-        intialValues: {
+        initialValues: {
             country: propertyDetails?.country,
             city: propertyDetails?.city,
             address: propertyDetails?.address

@@ -1,10 +1,11 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { useState } from 'react';
-import { Modal, Stepper, Button, Group, Container } from '@mantine/core';
+import { Modal, Stepper, Container } from '@mantine/core';
 import AddLocation from '../AddLocation/AddLocation';
 import { useAuth0 } from '@auth0/auth0-react';
+import UploadImage from '../uploadImage/UploadImage';
+import BasicDetails from '../basicDetails/BasicDetails';
+import Facilities from '../facilities/Facilities';
 
 const AddPropertyModal = ({ opened, setOpened }) => {
     const [active, setActive] = useState(0);
@@ -56,11 +57,30 @@ const AddPropertyModal = ({ opened, setOpened }) => {
                             setPropertyDetails={setPropertyDetails}
                         />
                     </Stepper.Step>
-                    <Stepper.Step label="Second step" description="Verify email">
-                        Step 2 content: Verify email
+                    <Stepper.Step label="Image" description="Upload">
+                        <UploadImage
+                            prevStep={prevStep}
+                            nextStep={nextStep}
+                            propertyDetails={propertyDetails}
+                            setPropertyDetails={setPropertyDetails}
+                        />
                     </Stepper.Step>
-                    <Stepper.Step label="Final step" description="Get full access">
-                        Step 3 content: Get full access
+                    <Stepper.Step label="Basic" description="Property Details">
+                        <BasicDetails
+                            prevStep={prevStep}
+                            nextStep={nextStep}
+                            propertyDetails={propertyDetails}
+                            setPropertyDetails={setPropertyDetails}
+                        />
+                    </Stepper.Step>
+                    <Stepper.Step>
+                        <Facilities
+                            nextStep={nextStep}
+                            prevStep={prevStep}
+                            propertyDetails={propertyDetails}
+                            setPropertyDetails={setPropertyDetails}
+                            setOpened={setOpened}
+                        />
                     </Stepper.Step>
                     <Stepper.Completed>
                         Completed, click back button to get to previous step

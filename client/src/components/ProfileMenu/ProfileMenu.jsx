@@ -26,14 +26,10 @@ const ProfileMenu = ({ user, logout }) => {
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
       >
-        <Avatar sx={{ width: 40, height: 40 }}>
-          <img
-            src={user?.picture}
-            alt="user Profile"
-            style={{
-              objectFit: "cover",
-            }}
-          />
+        <Avatar sx={{ width: 40, height: 40 }}
+          src={user?.picture}
+          alt="user Profile"
+        >
         </Avatar>
       </IconButton>
       <Menu
