@@ -51,6 +51,7 @@ const ProfileMenu = ({ user, logout }) => {
             display: "flex",
             gap: "0.8rem",
           }}
+          onClick={() => navigate("/favourites", { replace: true })}
         >
           <MdOutlineFavorite size={20} />
           Favorites
