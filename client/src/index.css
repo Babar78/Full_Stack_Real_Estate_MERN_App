@@ -129,3 +129,19 @@ a {
   cursor: pointer;
   transform: scale(1.1);
 }
+
+/* Hero Section Search bar */
+.hero-left .search-bar input {
+  width: 60%;
+}
+
+@media (max-width: 520px) {
+  .hero-left .search-bar input {
+    width: 50%;
+  }
+}
+@media (max-width: 350px) {
+  .hero-left .search-bar input {
+    width: 40%;
+  }
+}
