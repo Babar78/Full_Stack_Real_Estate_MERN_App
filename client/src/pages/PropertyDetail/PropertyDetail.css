@@ -45,11 +45,29 @@
   gap: 0.5rem;
 }
 
-.property-container .property-details .left .button{
-    width: 100%;
-    margin-top: 1rem;
+.property-container .property-details .left .button {
+  width: 100%;
+  margin-top: 1rem;
 }
 
-.property-container .property-details .left .button:hover{
-    transform: scale(1.05);
+.property-container .property-details .left .button:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 700px) {
+  .property-container > div {
+    flex-direction: column;
+  }
+
+  .head {
+    flex-direction: column;
+  }
+
+  .facilities {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .property-details > div {
+    width: 100%;
+  }
 }
