@@ -7,7 +7,7 @@ import { Outlet } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useMutation } from "react-query";
 import { createUser } from "../../utils/api";
-import UserDetailsContext from "../../context/userDetailsContext";
+import UserDetailsContext from "../../context/userDetailsContext.js";
 import useFavourites from "../../hooks/useFavourites";
 import useBookings from "../../hooks/useBookings";
 const Layout = () => {

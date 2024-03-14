@@ -75,11 +75,11 @@ const AddPropertyModal = ({ opened, setOpened }) => {
                     </Stepper.Step>
                     <Stepper.Step>
                         <Facilities
-                            nextStep={nextStep}
                             prevStep={prevStep}
                             propertyDetails={propertyDetails}
                             setPropertyDetails={setPropertyDetails}
                             setOpened={setOpened}
+                            setActive={setActive}
                         />
                     </Stepper.Step>
                     <Stepper.Completed>

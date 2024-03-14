@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useForm } from '@mantine/form';
 import { validateString } from '../../utils/common';
 import { TextInput, Box, Textarea, Group, Button, NumberInput } from '@mantine/core';
@@ -19,7 +19,7 @@ function BasicDetails({
         validate: {
             title: (value) => validateString(value),
             description: (value) => validateString(value),
-            price: (value) => value > 1000 ? "Must be greater tahn $999" : null
+            price: (value) => value < 1000 ? "Must be greater tahn $999" : null
         }
     })
 
