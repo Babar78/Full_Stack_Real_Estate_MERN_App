@@ -8,7 +8,12 @@ import { IoBookmarks } from "react-icons/io5";
 import { MdOutlineFavorite } from "react-icons/md";
 import { TbLogout } from "react-icons/tb";
 
+import { useNavigate } from "react-router-dom";
+
 const ProfileMenu = ({ user, logout }) => {
+
+  const navigate = useNavigate();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -55,6 +60,7 @@ const ProfileMenu = ({ user, logout }) => {
             display: "flex",
             gap: "0.8rem",
           }}
+          onClick={() => navigate("./bookings", { replace: true })}
         >
           <IoBookmarks size={20} />
           Bookings

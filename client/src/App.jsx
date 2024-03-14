@@ -11,6 +11,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PropertyDetail from "./pages/PropertyDetail/PropertyDetail";
 import UserDetailsContext from "./context/userDetailsContext.js";
+import Bookings from './pages/Bookings/Bookings.jsx';
 
 function App() {
   const queryClient = new QueryClient();
@@ -41,6 +42,7 @@ function App() {
                   <Route index element={<Properties />} />
                   <Route path=":propertyId" element={<PropertyDetail />} />
                 </Route>
+                <Route path="/bookings" element={<Bookings />} />
               </Route>
             </Routes>
           </Suspense>
